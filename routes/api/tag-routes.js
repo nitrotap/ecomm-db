@@ -16,7 +16,6 @@ router.get('/', (req, res) => {
 				model: Product,
 				attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
 			}]
-		
 	}).then(prodData => res.json(prodData))
 		.catch(err => {
 			console.log(err);
@@ -49,14 +48,6 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 	// create a new tag
-	// Tag.create({
-	// 	tag_name: req.body.tag_name
-	// }).then(tagData => res.json(tagData))
-	// 	.catch(err => {
-	// 		console.log(err);
-	// 		res.status(500).json(err);
-	// 	});
-	
 	Tag.create(req.body)
 		.then((tag) => {
 			if (req.body.prodIds.length) {
@@ -75,7 +66,6 @@ router.post('/', (req, res) => {
 			console.log(err);
 			res.status(400).json(err);
 		});
-
 });
 
 router.put('/:id', (req, res) => {
@@ -105,7 +95,6 @@ router.put('/:id', (req, res) => {
 							product_id,
 						};
 					});
-			
 
 				// figure out which ones to remove
 				const productTagsToRemove = productTags
@@ -138,11 +127,10 @@ router.delete('/:id', (req, res) => {
 			return;
 		}
 		res.json(tagData);
-	})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json(err);
-		});
+	}).catch(err => {
+		console.log(err);
+		res.status(500).json(err);
+	});
 });
 
 module.exports = router;

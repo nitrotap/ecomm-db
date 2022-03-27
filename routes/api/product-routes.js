@@ -26,11 +26,10 @@ router.get('/', (req, res) => {
 			{
 				model: Tag,
 				attributes: [
+					'id',
 					'tag_name'
 				]
-
 			}
-
 		]
 	}).then(prodData => res.json(prodData))
 		.catch(err => {
@@ -65,11 +64,10 @@ router.get('/:id', (req, res) => {
 			{
 				model: Tag,
 				attributes: [
+					'id',
 					'tag_name'
 				]
-
 			}
-
 		]
 	}).then(prodData => res.json(prodData))
 		.catch(err => {
@@ -147,7 +145,6 @@ router.put('/:id', (req, res) => {
 		})
 		.then((updatedProductTags) => res.json(updatedProductTags))
 		.catch((err) => {
-			// console.log(err);
 			res.status(400).json(err);
 		});
 });
@@ -164,11 +161,10 @@ router.delete('/:id', (req, res) => {
 			return;
 		}
 		res.json(prodData);
-	})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json(err);
-		});
+	}).catch(err => {
+		console.log(err);
+		res.status(500).json(err);
+	});
 });
 
 module.exports = router;

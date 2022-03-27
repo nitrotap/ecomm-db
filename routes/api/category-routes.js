@@ -16,8 +16,7 @@ router.get('/', (req, res) => {
 				model: Product,
 				attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
 			}]
-	})
-		.then(catData => res.json(catData))
+	}).then(catData => res.json(catData))
 		.catch(err => {
 			console.log(err);
 			res.status(500).json(err);
@@ -53,8 +52,7 @@ router.post('/', (req, res) => {
 	// create a new category
 	Category.create({
 		category_name: req.body.category_name
-	})
-		.then(catData => res.json(catData))
+	}).then(catData => res.json(catData))
 		.catch(err => {
 			console.log(err);
 			res.status(500).json(err);
@@ -70,14 +68,13 @@ router.put('/:id', (req, res) => {
 		where: {
 			id: req.params.id
 		}
+	}).then(catData => {
+		if (!catData) {
+			res.status(404).json({ message: 'No category found with this id' });
+			return;
+		}
+		res.json(catData);
 	})
-		.then(catData => {
-			if (!catData) {
-				res.status(404).json({ message: 'No category found with this id' });
-				return;
-			}
-			res.json(catData);
-		})
 		.catch(err => {
 			console.log(err);
 			res.status(500).json(err);
@@ -90,18 +87,16 @@ router.delete('/:id', (req, res) => {
 		where: {
 			id: req.params.id
 		}
-	})		
-		.then(catData => {
-			if (!catData) {
-				res.status(404).json({ message: 'No category found with this id' });
-				return;
-			}
-			res.json(catData);
-		})
-		.catch(err => {
-			console.log(err);
-			res.status(500).json(err);
-		});
+	}).then(catData => {
+		if (!catData) {
+			res.status(404).json({ message: 'No category found with this id' });
+			return;
+		}
+		res.json(catData);
+	}).catch(err => {
+		console.log(err);
+		res.status(500).json(err);
+	});
 });
 
 module.exports = router;
